@@ -2,6 +2,8 @@ package org.testing.db.functions;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -16,6 +18,7 @@ import java.sql.Statement;
 import org.junit.jupiter.api.Test;
 
 class DBTestServiceTest {
+
     /**
      * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
      */
@@ -83,6 +86,42 @@ class DBTestServiceTest {
         when(connection.createStatement()).thenThrow(new SQLException());
         assertThrows(SQLException.class, () -> dbTestService.createStm(connection));
         verify(connection).createStatement();
+    }
+
+    /**
+     * Method under test: {@link DBTestService#showData(ResultSet)}
+     */
+    @Test
+    void testShowData() throws SQLException {
+        assertThrows(IllegalArgumentException.class, () -> (new DBTestService()).showData(null));
+    }
+
+    /**
+     * Teste folgende Methode: {@link DBTestService#showData(ResultSet)}
+     */
+    @Test
+    void testShowData2() throws SQLException {
+        DBTestService dbTestService = new DBTestService();
+        ResultSet resultSet = mock(ResultSet.class);
+        when(resultSet.getString(anyInt())).thenReturn("String");
+        when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        dbTestService.showData(resultSet);
+        verify(resultSet, atLeast(1)).next();
+        verify(resultSet, atLeast(1)).getString(anyInt());
+    }
+
+    /**
+     * Teste folgende Methode: {@link DBTestService#showData(ResultSet)}
+     */
+    @Test
+    void testShowData3() throws SQLException {
+        DBTestService dbTestService = new DBTestService();
+        ResultSet resultSet = mock(ResultSet.class);
+        when(resultSet.getString(anyInt())).thenThrow(new SQLException());
+        when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
+        assertThrows(SQLException.class, () -> dbTestService.showData(resultSet));
+        verify(resultSet).next();
+        verify(resultSet).getString(anyInt());
     }
 }
 
