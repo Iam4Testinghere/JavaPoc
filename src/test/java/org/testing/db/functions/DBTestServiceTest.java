@@ -1,36 +1,88 @@
 package org.testing.db.functions;
-import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class DBTestServiceTest {
-
-    private static final String DB_HOST = "192.168.1.113";
-    private static final String PORT = "1521";
-    private static final String DB_SERVICE = "pdborcl";
-    private static final String DB_USER = "hr";
-    private static final String DB_PASSWORD = "Admin123";
-    private static final String JDBC_ORACLE = "jdbc:oracle:thin:@" + DB_HOST + ":" + PORT + "/" + DB_SERVICE;
-
-    private DBTestService dbTestService;
-
-    @BeforeEach
-    void setUp() {
-        dbTestService = new DBTestService();
+    /**
+     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     */
+    @Test
+    void testCreateStm() throws SQLException {
+        DBTestService dbTestService = new DBTestService();
+        ResultSet resultSet = mock(ResultSet.class);
+        doNothing().when(resultSet).close();
+        Statement statement = mock(Statement.class);
+        when(statement.executeQuery((String) any())).thenReturn(resultSet);
+        doNothing().when(statement).close();
+        Connection connection = mock(Connection.class);
+        when(connection.createStatement()).thenReturn(statement);
+        dbTestService.createStm(connection);
+        verify(connection).createStatement();
+        verify(statement).executeQuery((String) any());
+        verify(statement).close();
+        verify(resultSet).close();
     }
 
+    /**
+     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     */
     @Test
-    @DisplayName("Test connectToDb method")
-    void testConnectToDb() {
-        try (Connection conn = DriverManager.getConnection(JDBC_ORACLE, DB_USER, DB_PASSWORD)) {
-            assertNotNull(conn);
-            assertTrue(conn.isValid(0));
-        } catch (SQLException e) {
-            fail("Could not connect to database: " + e.getMessage());
-        }
+    void testCreateStm2() throws SQLException {
+        DBTestService dbTestService = new DBTestService();
+        ResultSet resultSet = mock(ResultSet.class);
+        doThrow(new SQLException()).when(resultSet).close();
+        Statement statement = mock(Statement.class);
+        when(statement.executeQuery((String) any())).thenReturn(resultSet);
+        doNothing().when(statement).close();
+        Connection connection = mock(Connection.class);
+        when(connection.createStatement()).thenReturn(statement);
+        assertThrows(SQLException.class, () -> dbTestService.createStm(connection));
+        verify(connection).createStatement();
+        verify(statement).executeQuery((String) any());
+        verify(statement).close();
+        verify(resultSet).close();
+    }
+
+    /**
+     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     */
+    @Test
+    void testCreateStm3() throws SQLException {
+        DBTestService dbTestService = new DBTestService();
+        Statement statement = mock(Statement.class);
+        when(statement.executeQuery((String) any())).thenThrow(new IllegalArgumentException());
+        doThrow(new IllegalArgumentException()).when(statement).close();
+        Connection connection = mock(Connection.class);
+        when(connection.createStatement()).thenReturn(statement);
+        assertThrows(IllegalArgumentException.class, () -> dbTestService.createStm(connection));
+        verify(connection).createStatement();
+        verify(statement).executeQuery((String) any());
+        verify(statement).close();
+    }
+
+    /**
+     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     */
+    @Test
+    void testCreateStm4() throws SQLException {
+        DBTestService dbTestService = new DBTestService();
+        Connection connection = mock(Connection.class);
+        when(connection.createStatement()).thenThrow(new SQLException());
+        assertThrows(SQLException.class, () -> dbTestService.createStm(connection));
+        verify(connection).createStatement();
     }
 }
+
