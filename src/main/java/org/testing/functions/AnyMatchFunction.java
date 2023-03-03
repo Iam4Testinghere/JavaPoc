@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class AnyMatchFunction {
 
     List<String> leer = new ArrayList<>();
-    public AnyMatchFunction() {};
+    public AnyMatchFunction() {}
 
     public void checklist(List<String> leer) {
         if (leer == null || leer.isEmpty() || leer.stream().anyMatch(s -> s == null || s.isEmpty())) {
@@ -15,10 +15,6 @@ public class AnyMatchFunction {
         }
         leer.stream().filter( f -> f.equals("patrick")).collect(Collectors.toList());
     }
-    void test(List<String> leer) {
-        if(leer.stream().anyMatch( f -> f== null || f.isEmpty()))
-            throw new IllegalArgumentException("List is empty or contains null or empty elements");
-        }
 
-    }
+}
 
