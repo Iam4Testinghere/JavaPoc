@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 class BsfDsfFunctionstest {
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS() {
@@ -21,7 +21,7 @@ class BsfDsfFunctionstest {
     }
 
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS2() {
@@ -30,7 +30,7 @@ class BsfDsfFunctionstest {
     }
 
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS3() {
@@ -39,7 +39,7 @@ class BsfDsfFunctionstest {
     }
 
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS4() {
@@ -49,7 +49,7 @@ class BsfDsfFunctionstest {
     }
 
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS5() {
@@ -61,30 +61,8 @@ class BsfDsfFunctionstest {
         bsfDsfFunctionsList.add(bsfDsfFunctions1);
         assertSame(bsfDsfFunctions1, bsfDsfFunctions.searchPersonDFS("Name", 1, bsfDsfFunctionsList));
     }
-
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
-     */
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testSearchPersonDFS6() {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.NullPointerException
-        //       at org.testing.functions.BsfDsfFunctions.searchPersonDFS(BsfDsfFunctions.java:58)
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        BsfDsfFunctions bsfDsfFunctions = new BsfDsfFunctions("Name", 1);
-
-        ArrayList<BsfDsfFunctions> bsfDsfFunctionsList = new ArrayList<>();
-        bsfDsfFunctionsList.add(new BsfDsfFunctions(null, 1));
-        bsfDsfFunctions.searchPersonDFS("Name", 1, bsfDsfFunctionsList);
-    }
-
-    /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS7() {
@@ -97,7 +75,7 @@ class BsfDsfFunctionstest {
     }
 
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS8() {
@@ -110,7 +88,7 @@ class BsfDsfFunctionstest {
     }
 
     /**
-     * Method under test: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
+     * Teste folgende Methode: {@link BsfDsfFunctions#searchPersonDFS(String, int, List)}
      */
     @Test
     void testSearchPersonDFS9() {

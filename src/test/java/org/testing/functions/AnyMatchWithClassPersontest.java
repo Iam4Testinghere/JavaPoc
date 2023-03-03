@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class AnyMatchWithClassPersontest {
     /**
-     * Method under test: {@link AnyMatchWithClassPerson#personListSort(List)}
+     * Teste folgende Methode: {@link AnyMatchWithClassPerson#personListSort(List)}
      */
     @Test
     void testPersonListSort() {
@@ -20,7 +20,7 @@ class AnyMatchWithClassPersontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchWithClassPerson#personListSort(List)}
+     * Teste folgende Methode: {@link AnyMatchWithClassPerson#personListSort(List)}
      */
     @Test
     void testPersonListSort2() {
@@ -32,7 +32,7 @@ class AnyMatchWithClassPersontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchWithClassPerson#personListSort(List)}
+     * Teste folgende Methode: {@link AnyMatchWithClassPerson#personListSort(List)}
      */
     @Test
     void testPersonListSort3() {
@@ -45,7 +45,7 @@ class AnyMatchWithClassPersontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchWithClassPerson#personListSort(List)}
+     * Teste folgende Methode: {@link AnyMatchWithClassPerson#personListSort(List)}
      */
     @Test
     void testPersonListSort4() {
@@ -58,7 +58,7 @@ class AnyMatchWithClassPersontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchWithClassPerson#personListSort(List)}
+     * Teste folgende Methode: {@link AnyMatchWithClassPerson#personListSort(List)}
      */
     @Test
     void testPersonListSort5() {

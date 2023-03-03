@@ -89,8 +89,6 @@ public class PlayWithArrayAndList {
         if (newAge < 0) {
             return false;
         }
-        //check TestObject is not null
-
         boolean found = false;
         for (PlayWithArrayAndList person : peopleList) {
             if (person != null && person.getName() != null && person.getName().equals(name)) {

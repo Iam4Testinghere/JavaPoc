@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class AnyMatchFunctiontest {
     /**
-     * Method under test: {@link AnyMatchFunction#checklist(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#checklist(List)}
      */
     @Test
     void testChecklist() {
@@ -20,7 +20,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#checklist(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#checklist(List)}
      */
     @Test
     void testChecklist2() {
@@ -28,7 +28,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#checklist(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#checklist(List)}
      */
     @Test
     void testChecklist3() {
@@ -41,7 +41,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#checklist(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#checklist(List)}
      */
     @Test
     void testChecklist4() {
@@ -55,7 +55,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#checklist(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#checklist(List)}
      */
     @Test
     void testChecklist5() {
@@ -67,7 +67,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#checklist(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#checklist(List)}
      */
     @Test
     void testChecklist6() {
@@ -79,7 +79,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#test(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#test(List)}
      */
     @Test
     void testTest() {
@@ -90,7 +90,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#test(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#test(List)}
      */
     @Test
     void testTest2() {
@@ -103,7 +103,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#test(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#test(List)}
      */
     @Test
     void testTest3() {
@@ -117,7 +117,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#test(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#test(List)}
      */
     @Test
     void testTest4() {
@@ -129,7 +129,7 @@ class AnyMatchFunctiontest {
     }
 
     /**
-     * Method under test: {@link AnyMatchFunction#test(List)}
+     * Teste folgende Methode: {@link AnyMatchFunction#test(List)}
      */
     @Test
     void testTest5() {

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SaveWebpageAsHtmlTests {
     /**
-     * Method under test: {@link SaveWebpageAsHtml#checkFilePermissions(String, Path)}
+     * Teste folgende Methode: {@link SaveWebpageAsHtml#checkFilePermissions(String, Path)}
      */
     @Test
     void testCheckFilePermissions() throws IOException, SecurityException {
