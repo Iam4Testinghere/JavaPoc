@@ -18,7 +18,7 @@ public class DBTestController {
         return  dbTestService.createStm(this.connectToDb());
     }
     public void showData(ResultSet rs ) throws SQLException {
-        dbTestService.showData(this.createStm(this.connectToDb()), rs);
+        dbTestService.showData(this.createStm(this.connectToDb()));
     }
     public void closeConnection(Connection connection) {
         dbTestService.closeConnection(connection);

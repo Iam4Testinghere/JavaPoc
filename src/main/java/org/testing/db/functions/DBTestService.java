@@ -16,18 +16,23 @@ public class DBTestService {
     }
     public Connection connectToDb() {
         try {
-                conn = DriverManager.getConnection(JDBC_ORACLE, DB_USER, DB_PASSWORD);
+            conn = DriverManager.getConnection(JDBC_ORACLE, DB_USER, DB_PASSWORD);
+            return conn;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return conn;
     }
+
     public ResultSet createStm(Connection conn) throws SQLException {
-        Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery(sql);
-        return rs ;
+        try (Statement stm = conn.createStatement();
+             ResultSet rs = stm.executeQuery(sql)) {
+            return rs;
+        }
     }
-    public void showData(ResultSet rs, ResultSet resultSet) throws SQLException {
+    public void showData(ResultSet rs ) throws SQLException {
+        if(rs == null ) {
+            throw new IllegalArgumentException("ResultSet is null");
+        }
         while (rs.next()) {
             System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
         }
@@ -36,10 +41,12 @@ public class DBTestService {
         return conn;
     }
     public void closeConnection(Connection connection) {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
