@@ -1,4 +1,4 @@
-package org.testing.db.functions;
+package tutorial.code.snipes.db;
 
 import java.sql.*;
 

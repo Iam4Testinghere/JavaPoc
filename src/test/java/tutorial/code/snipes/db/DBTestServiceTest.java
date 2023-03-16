@@ -1,4 +1,4 @@
-package org.testing.db.functions;
+package tutorial.code.snipes.db;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
@@ -14,16 +14,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class DBTestServiceTest {
-
+class DBTestServiceTests {
     /**
-     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     * Testet die Methode {@link DBTestService#createStm(Connection)}.
+     * Überprüft, ob das Statement korrekt erstellt wird und ob es ausgeführt und geschlossen wird.
      */
     @Test
-    void testCreateStm() throws SQLException {
+    @DisplayName("Teste die createStm-Methode mit korrektem Statement")
+    void testCreateStm_withValidStatement() throws SQLException {
         DBTestService dbTestService = new DBTestService();
         ResultSet resultSet = mock(ResultSet.class);
         doNothing().when(resultSet).close();
@@ -38,12 +39,13 @@ class DBTestServiceTest {
         verify(statement).close();
         verify(resultSet).close();
     }
-
     /**
-     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     * Testet die Methode {@link DBTestService#createStm(Connection)}.
+     * Überprüft, ob eine SQLException ausgelöst wird, wenn ResultSet#close() fehlschlägt.
      */
     @Test
-    void testCreateStm2() throws SQLException {
+    @DisplayName("Teste die createStm-Methode mit fehlerhaftem ResultSet#close()")
+    void testCreateStm_withResultSetCloseFailure() throws SQLException {
         DBTestService dbTestService = new DBTestService();
         ResultSet resultSet = mock(ResultSet.class);
         doThrow(new SQLException()).when(resultSet).close();
@@ -58,12 +60,13 @@ class DBTestServiceTest {
         verify(statement).close();
         verify(resultSet).close();
     }
-
     /**
-     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     * Testet die Methode {@link DBTestService#createStm(Connection)}.
+     * Überprüft, ob eine IllegalArgumentException ausgelöst wird, wenn Statement#executeQuery(String) fehlschlägt.
      */
     @Test
-    void testCreateStm3() throws SQLException {
+    @DisplayName("Teste die createStm-Methode mit fehlerhaftem Statement#executeQuery(String)")
+    void testCreateStm_withStatementExecuteQueryFailure() throws SQLException {
         DBTestService dbTestService = new DBTestService();
         Statement statement = mock(Statement.class);
         when(statement.executeQuery((String) any())).thenThrow(new IllegalArgumentException());
@@ -75,32 +78,35 @@ class DBTestServiceTest {
         verify(statement).executeQuery((String) any());
         verify(statement).close();
     }
-
     /**
-     * Teste folgende Methode: {@link DBTestService#createStm(Connection)}
+     * Testet die Methode {@link DBTestService#createStm(Connection)}.
+     * Überprüft, ob eine SQLException ausgelöst wird, wenn Connection#createStatement() fehlschlägt.
      */
     @Test
-    void testCreateStm4() throws SQLException {
+    @DisplayName("Teste die createStm-Methode mit fehlerhaftem Connection#createStatement()")
+    void testCreateStm_withConnectionCreateStatementFailure() throws SQLException {
         DBTestService dbTestService = new DBTestService();
         Connection connection = mock(Connection.class);
         when(connection.createStatement()).thenThrow(new SQLException());
         assertThrows(SQLException.class, () -> dbTestService.createStm(connection));
         verify(connection).createStatement();
     }
-
     /**
-     * Method under test: {@link DBTestService#showData(ResultSet)}
+     * Testet die Methode {@link DBTestService#showData(ResultSet)}.
+     * Überprüft, ob eine IllegalArgumentException ausgelöst wird, wenn ResultSet null ist.
      */
     @Test
-    void testShowData() throws SQLException {
+    @DisplayName("Teste die showData-Methode mit null-ResultSet")
+    void testShowData_withNullResultSet() throws SQLException {
         assertThrows(IllegalArgumentException.class, () -> (new DBTestService()).showData(null));
     }
-
     /**
-     * Teste folgende Methode: {@link DBTestService#showData(ResultSet)}
+     * Testet die Methode {@link DBTestService#showData(ResultSet)}.
+     * Überprüft, ob die Methode die Ergebnisse des ResultSet richtig ausgibt.
      */
     @Test
-    void testShowData2() throws SQLException {
+    @DisplayName("Teste die showData-Methode mit korrektem ResultSet")
+    void testShowData_withValidResultSet() throws SQLException {
         DBTestService dbTestService = new DBTestService();
         ResultSet resultSet = mock(ResultSet.class);
         when(resultSet.getString(anyInt())).thenReturn("String");
@@ -109,12 +115,13 @@ class DBTestServiceTest {
         verify(resultSet, atLeast(1)).next();
         verify(resultSet, atLeast(1)).getString(anyInt());
     }
-
     /**
-     * Teste folgende Methode: {@link DBTestService#showData(ResultSet)}
+     * Testet die Methode {@link DBTestService#showData(ResultSet)}.
+     * Überprüft, ob eine SQLException ausgelöst wird, wenn ResultSet#getInt(int) fehlschlägt.
      */
     @Test
-    void testShowData3() throws SQLException {
+    @DisplayName("Teste die showData-Methode mit fehlerhaftem ResultSet#getInt(int)")
+    void testShowData_withResultSetGetIntFailure() throws SQLException {
         DBTestService dbTestService = new DBTestService();
         ResultSet resultSet = mock(ResultSet.class);
         when(resultSet.getString(anyInt())).thenThrow(new SQLException());
@@ -124,4 +131,3 @@ class DBTestServiceTest {
         verify(resultSet).getString(anyInt());
     }
 }
-

@@ -1,4 +1,4 @@
-package org.testing.functions;
+package tutorial.code.snipes.StreamsPages;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,13 +13,11 @@ import java.nio.file.Paths;
 
 public class SaveWebpageAsHtml {
     // Konstanten am Anfang der Klasse deklarieren
-    public static final String SW_TEST_HTML = "test.html";
+    public static final String SW_TEST_HTML = "consumerRunnableSupplierOptional.html";
     public static final String HTTP_CONSOLE_LOGIN_PAGE = "http://abc:7001/console/login/LoginForm.jsp";
-
     private String webpageUrl = HTTP_CONSOLE_LOGIN_PAGE;
     private String htmlFileName = SW_TEST_HTML;
     private Path htmlFilePath = Paths.get(htmlFileName);
-
     public void startProcess() {
         try {
             // HTML-Datei von der Webseite lesen
@@ -32,7 +30,6 @@ public class SaveWebpageAsHtml {
             e.printStackTrace();
         }
     }
-
     public void checkFilePermissions(String htmlFileName, Path htmlFilePath) throws SecurityException {
         // Überprüfen Sie, ob die HTML-Datei beschreibbar ist
         if (!Files.isWritable(htmlFilePath)) {
@@ -44,8 +41,6 @@ public class SaveWebpageAsHtml {
         }
         System.out.println("Die HTML-Datei " + htmlFileName + " wurde erfolgreich erstellt.");
     }
-
-
     public void readPage(String webpageUrl, String htmlFileName) throws IOException {
         HttpURLConnection connection = getHttpURLConnection(webpageUrl);
         readPage(connection);
@@ -85,7 +80,6 @@ public class SaveWebpageAsHtml {
             }
         }
     }
-
     public void readPage(HttpURLConnection connection) throws IOException {
         // GET-Anforderung an die Webseite senden
         connection.setRequestMethod("GET");
@@ -94,7 +88,6 @@ public class SaveWebpageAsHtml {
         // Verbindung zur Webseite herstellen
         connection.connect();
     }
-
     public HttpURLConnection getHttpURLConnection(String webpageUrl) throws IOException {
         // URL-Objekt aus der Webseiten-URL erstellen
         URL url = new URL(webpageUrl);
