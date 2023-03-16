@@ -3,11 +3,11 @@ package tutorial.code.snipes.db;
 import java.sql.*;
 
 public class DBTestService {
-    public static final String DB_HOST = "192.168.1.113";
+    public static final String DB_HOST = "1.2.3.4";
     public static final String PORT = "1521";
     public static final String DB_SERVICE = "pdborcl";
     public static final String DB_USER = "hr";
-    public static final String DB_PASSWORD = "Admin123";
+    public static final String DB_PASSWORD = "xxx";
     public static final String JDBC_ORACLE = "jdbc:oracle:thin:@" + DB_HOST + ":" + PORT + "/" + DB_SERVICE;
     private Connection conn = null;
     private String sql = "SELECT * FROM EMPLOYEES";
