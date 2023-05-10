@@ -8,9 +8,9 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 
 /**
  * Änderung von Patrick Wiget am  09.Mai 2023: Hinzufügen einer neuen Funktion plus Text Beschreibung.
- * Diese Klasse generiert Sensorereignisse und führt eine Aggregation für einen bestimmten Zeitraum durch.
- * Diese Klasse generiert einen Datenstrom von Sensorereignissen, gruppiert sie nach Sensor-ID und berechnet
- * Durchschnittswerte innerhalb eines Zeitfensters.
+ /**
+ * Diese Klasse generiert einen Datenstrom von Sensorereignissen, gruppiert sie nach Sensor-ID
+ * und berechnet Durchschnittswerte innerhalb eines Zeitfensters.
  * TODO: Ich muss noch Junit 5 Demo Test schreiben.
  * TODO: Fehlerbehandlung fehlen.
  * TODO: Evtl. noch Logger.getLogge Implementieren.
