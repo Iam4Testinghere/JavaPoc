@@ -13,6 +13,7 @@ public class SensorEvent {
 
     /**
      * Änderung von Patrick Wiget am 10.Mai 2023: Hinzufügen einer neuen Funktion plus Text Beschreibung.
+     *
      * Erstellt ein neues Sensorereignis mit den angegebenen Eigenschaften.
      *
      * @param sensorId Die ID des Sensors, der das Ereignis ausgelöst hat.
@@ -50,5 +51,19 @@ public class SensorEvent {
      */
     public long getEventTime() {
         return eventTime;
+    }
+
+    /**
+     * Gibt eine String-Repräsentation des Sensorereignisses zurück.
+     *
+     * @return Die String-Repräsentation des Sensorereignisses.
+     */
+    @Override
+    public String toString() {
+        return "SensorEvent{" +
+                "sensorId='" + sensorId + '\'' +
+                ", value=" + value +
+                ", eventTime=" + eventTime +
+                '}';
     }
 }
