@@ -52,6 +52,35 @@
            <artifactId>ojdbc8</artifactId>
            <version>21.7.0.0</version>
        </dependency>
+       <!-- JUnit 5 -->
+       <dependency>
+           <groupId>org.junit.jupiter</groupId>
+           <artifactId>junit-jupiter-api</artifactId>
+           <version>5.8.0</version>
+           <scope>test</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.junit.jupiter</groupId>
+           <artifactId>junit-jupiter-engine</artifactId>
+           <version>5.8.0</version>
+           <scope>test</scope>
+       </dependency>
+       <!-- Mockito -->
+       <dependency>
+           <groupId>org.mockito</groupId>
+           <artifactId>mockito-core</artifactId>
+           <version>4.2.0</version>
+           <scope>test</scope>
+       </dependency>
+
+       <!-- Flink Test -->
+       <dependency>
+           <groupId>org.apache.flink</groupId>
+           <artifactId>flink-test-utils_2.12</artifactId>
+           <version>1.14.4</version>
+           <scope>test</scope>
+       </dependency>
+
 
        <!-- Standard flink -->
        <dependency>
