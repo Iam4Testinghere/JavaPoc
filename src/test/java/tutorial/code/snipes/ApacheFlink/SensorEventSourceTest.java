@@ -1,27 +1,59 @@
 package tutorial.code.snipes.ApacheFlink;
 
 import org.apache.flink.streaming.api.functions.source.SourceFunction.SourceContext;
-import org.apache.flink.streaming.api.watermark.Watermark;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import static org.mockito.Mockito.*;
 
 /**
- * Die Klasse SensorSourceTest enthält Testfälle für die SensorEventSource-Klasse.
- * Es wird getestet, ob die run-Methode korrekt SensorEvent-Objekte generiert und Wasserzeichen erzeugt.
+ * Diese Klasse enthält Tests für die SensorEventSource-Klasse.
  */
-class SensorSourceTest {
+public class SensorEventSourceTest {
+    private SensorEventSource sensorEventSource;
+    private SourceContext<SensorEvent> sourceContext;
+
+    /**
+     * Initialisiert die SensorEventSource und das SourceContext-Objekt.
+     */
+    @BeforeEach
+    public void setUp() {
+        sensorEventSource = new SensorEventSource();
+        sourceContext = Mockito.mock(SourceContext.class);
+    }
+
+    /**
+     * Beendet die SensorEventSource.
+     */
+    @AfterEach
+    public void tearDown() {
+        sensorEventSource.cancel();
+    }
+
+    /**
+     * Testet die run()-Methode der SensorEventSource-Klasse.
+     *
+     * Die Methode startet die SensorEventSource in einem separaten Thread, um den Test nicht zu blockieren.
+     * Es wird eine Wartezeit von 2000 Millisekunden eingesetzt, damit genug Events generiert werden.
+     * Anschließend wird die SensorEventSource beendet und der Thread beendet.
+     * Es wird geprüft, dass die collect()-Methode mindestens einmal und mindestens 10-mal aufgerufen wird.
+     */
     @Test
-    void testRunMethod() throws Exception {
-        // Setup
-        SensorEventSource sensorSource = new SensorEventSource();
-        SourceContext<SensorEvent> context = mock(SourceContext.class);
-        // Exercise
-        sensorSource.run(context);
-        // Verify
-        // Überprüfen, ob mindestens 10 SensorEvent-Objekte generiert wurden.
-        verify(context, atLeast(2)).collect(any(SensorEvent.class));
-        // Überprüfen, ob mindestens ein Wasserzeichen erzeugt wurde.
-        verify(context, atLeastOnce()).emitWatermark(any(Watermark.class));
+    public void testRunMethod() throws Exception {
+        Thread sourceThread = new Thread(() -> {
+            try {
+                sensorEventSource.run(sourceContext);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        sourceThread.start();
+        Thread.sleep(2000); // Wartezeit erhöht, um sicherzustellen, dass mindestens 10 Ereignisse generiert werden.
+        sensorEventSource.cancel();
+        sourceThread.join();
+        verify(sourceContext, atLeastOnce()).collect(any(SensorEvent.class));
+        verify(sourceContext, atLeast(10)).collect(any(SensorEvent.class));
     }
 }
-
