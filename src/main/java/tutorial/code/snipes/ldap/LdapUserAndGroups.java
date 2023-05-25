@@ -218,6 +218,7 @@ public class LdapUserAndGroups {
      * @param newPassword das neue Passwort
      * @throws NamingException falls ein Fehler bei der Namensauflösung auftritt
      * @throws IllegalArgumentException falls der Benutzername oder das neue Passwort ungültig sind
+     * Verende wenn möglich die java guard clause um den Kode lesbarer zu machen.
      */
     public void changeUserPassword(String userName, String newPassword) throws NamingException {
         if (userName == null || newPassword == null || userName.isEmpty() || newPassword.isEmpty()) {
