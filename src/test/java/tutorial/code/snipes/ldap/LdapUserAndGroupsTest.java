@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 public class LdapUserAndGroupsTest {
     /**
-     * Diese Klasse enthält Testfälle für die Methode "changeUserPasswordE" der Klasse "LdapUserAndGroups".
+     * Diese Klasse enthält Testfälle für die Methode "changeUserPassword" der Klasse "LdapUserAndGroups".
      * Sie prüft verschiedene Szenarien, in denen eine IllegalArgumentException erwartet wird.
-     * Testet die Methode "changeUserPasswordE" der Klasse "LdapUserAndGroups" mit verschiedenen Argumenten,
+     * Testet die Methode "changeUserPassword" der Klasse "LdapUserAndGroups" mit verschiedenen Argumenten,
      * bei denen eine IllegalArgumentException erwartet wird.
      *
      * @throws NamingException wenn ein Fehler bei der Namensauflösung auftritt
