@@ -1,10 +1,13 @@
 package tutorial.code.snipes.ldap;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.naming.NamingException;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 
 public class LdapUserAndGroupsTest {
@@ -40,5 +43,10 @@ public class LdapUserAndGroupsTest {
         // Überprüft, ob eine IllegalArgumentException geworfen wird, wenn "username" angegeben ist,
         // aber "password" leer ist
         assertThrows(IllegalArgumentException.class, () -> (new LdapUserAndGroups()).changeUserPassword("JohnDoe", ""));
+    }
+    @Test
+    void getUserDetailOnAttributLevel() throws NamingException {
+        LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
+        assertTrue(ldapUserAndGroups.getUserPhoneNumbers("JohnDoe").size() > 0);
     }
 }
