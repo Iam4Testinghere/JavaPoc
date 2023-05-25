@@ -186,5 +186,68 @@ public class LdapUserAndGroups {
             }
         }
     }
+
+    /**
+     * Ruft das Passwort für den angegebenen Benutzernamen ab.
+     *
+     * @param userName der Benutzername
+     * @return das Passwort des Benutzers oder null, wenn das Passwort nicht gefunden wurde
+     * @throws NamingException falls ein Fehler bei der Namensauflösung auftritt
+     */
+    public String getUserPassword(String userName) throws NamingException {
+        String searchFilter = "(cn=" + userName + ")";
+        String[] reqAtt = {"userPassword"};
+        SearchControls controls = new SearchControls();
+        controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        controls.setReturningAttributes(reqAtt);
+        NamingEnumeration users = connection.search("ou=Users,dc=example,dc=com", searchFilter, controls);
+        SearchResult result = null;
+        while (users.hasMore()) {
+            result = (SearchResult) users.next();
+            Attributes attr = result.getAttributes();
+            if (attr.get("userPassword") != null) {
+                return attr.get("userPassword").get().toString();
+            }
+        }
+        return null; // Wenn das Passwort nicht gefunden wurde
+    }
+    /**
+     * Ändert das Passwort für den angegebenen Benutzernamen.
+     *
+     * @param userName     der Benutzername
+     * @param newPassword das neue Passwort
+     * @throws NamingException falls ein Fehler bei der Namensauflösung auftritt
+     * @throws IllegalArgumentException falls der Benutzername oder das neue Passwort ungültig sind
+     */
+    public void changeUserPassword(String userName, String newPassword) throws NamingException {
+        if (userName == null || newPassword == null || userName.isEmpty() || newPassword.isEmpty()) {
+            throw new IllegalArgumentException("Benutzername oder neues Passwort dürfen nicht null oder leer sein");
+        }
+        // Verwende regulären Ausdruck, um die Länge des Passworts zu überprüfen
+        if (newPassword.length() < 8 || newPassword.length() > 16) {
+            throw new IllegalArgumentException("Passwort muss zwischen 8 und 16 Zeichen lang sein");
+        }
+        // Überprüfe mit regulärem Ausdruck, ob das Passwort Zahlen und Sonderzeichen enthält
+        if (!newPassword.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,16}$")) {
+            throw new IllegalArgumentException("Passwort muss mindestens eine Zahl, einen Großbuchstaben, einen Kleinbuchstaben, ein Sonderzeichen enthalten");
+        }
+        // Überprüfe, ob der Benutzer dasselbe Passwort verwendet
+        if (getUserPassword(userName).equals(newPassword)) {
+            throw new IllegalArgumentException("Das neue Passwort darf nicht mit dem alten übereinstimmen");
+        }
+        // Überprüfe, ob der Benutzer existiert
+        if (!findSpecificUser(userName)) {
+            throw new IllegalArgumentException("Benutzer nicht gefunden");
+        }
+        try {
+            ModificationItem[] item = new ModificationItem[1];
+            item[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", newPassword));
+            connection.modifyAttributes("cn=" + userName + ",ou=Users,dc=example,dc=com", item);
+        } catch (NamingException e) {
+            // Todo: log4j implnementieren
+            e.printStackTrace();
+        }
+    }
+
 }
 
