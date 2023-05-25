@@ -1,0 +1,80 @@
+dn: dc=example,dc=com
+objectClass: domain
+objectClass: top
+dc: example
+
+dn: ou=users,dc=example,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: users
+
+dn: cn=Directory manager,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Directory manager
+sn: manager
+uid: dmanager
+userPassword: password
+
+dn: cn=Joe0250,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Joe0250
+sn: Joe0250_true_true
+aveInstance: cn=oracleinst,ou=ave,ou=group,dc=example,dc=com
+memberof: cn=DL_Prd-Demo6-Sun,ou=ave,ou=group,dc=example,dc=com
+
+dn: cn=Joe0251,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Joe0251
+sn: Joe0251_true_false
+aveInstance: cn=oracleinst,ou=ave,ou=group,dc=example,dc=com
+memberof: CN=DL_Prd-Demo,OU=Prd_Demo2,OU=Prd_Generic
+
+dn: cn=Joe0252,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Joe0252
+sn: Joe0252_false_true
+aveInstance: cn=Iamfalse,ou=ave,ou=group,dc=example,dc=com
+memberof: CN=DE_PRD_Demo1,OU=Prd_Demo2,OU=Prd_Generic
+
+dn: cn=Max0253,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Max0253
+sn: Max0253_false_false
+aveInstance: Iamfalse
+memberof: Iamfalse
+
+dn: cn=Joe0254,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Joe0254
+sn: Joe0254
+aveInstance: cn=newWorld,ou=ave,ou=group,dc=example,dc=com
+memberof: CN=DL_Prd-Demo,OU=Prd_Demo2,OU=Prd_Generic
+
+dn: cn=Joe0255,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Joe0255
+sn: Joe0255
+aveInstance: cn=newWorld,ou=ave,ou=group,dc=example,dc=com
+memberof: CN=DL_Prd-Demo,OU=Prd_Demo2,OU=Prd_Generic
+memberof: cn=oracleinst,ou=ave,ou=group,dc=example,dc=com

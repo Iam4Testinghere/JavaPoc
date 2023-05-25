@@ -36,22 +36,11 @@
 
    <dependencies>
        <dependency>
-           <groupId>org.junit.jupiter</groupId>
-           <artifactId>junit-jupiter-engine</artifactId>
-           <version>5.7.0</version>
-           <scope>test</scope>
-       </dependency>
-       <dependency>
-           <groupId>org.mockito</groupId>
-           <artifactId>mockito-core</artifactId>
-           <version>4.5.1</version>
-           <scope>test</scope>
-       </dependency>
-       <dependency>
            <groupId>com.oracle.database.jdbc</groupId>
            <artifactId>ojdbc8</artifactId>
            <version>21.7.0.0</version>
        </dependency>
+
        <!-- JUnit 5 -->
        <dependency>
            <groupId>org.junit.jupiter</groupId>
@@ -69,7 +58,7 @@
        <dependency>
            <groupId>org.mockito</groupId>
            <artifactId>mockito-core</artifactId>
-           <version>4.2.0</version>
+           <version>5.2.0</version>
            <scope>test</scope>
        </dependency>
 
@@ -80,7 +69,6 @@
            <version>1.14.4</version>
            <scope>test</scope>
        </dependency>
-
 
        <!-- Standard flink -->
        <dependency>
@@ -103,13 +91,11 @@
            <artifactId>flink-table-api-java</artifactId>
            <version>${flink.version}</version>
        </dependency>
-
        <dependency>
            <groupId>org.apache.flink</groupId>
            <artifactId>flink-table-planner_2.12</artifactId>
            <version>1.16.1</version>
        </dependency>
-
        <dependency>
            <groupId>org.apache.flink</groupId>
            <artifactId>flink-table-api-java-bridge_2.12</artifactId>
@@ -120,6 +106,27 @@
            <groupId>org.apache.flink</groupId>
            <artifactId>flink-table-api-java-bridge_2.11</artifactId>
            <version>1.14.4</version>
+       </dependency>
+
+       <!-- LDAP -->
+       <dependency>
+           <groupId>org.apache.directory.server</groupId>
+           <artifactId>apacheds-server-jndi</artifactId>
+           <version>2.0.0.AM26</version>
+       </dependency>
+
+       <dependency>
+           <groupId>org.apache.directory.server</groupId>
+           <artifactId>apacheds-core</artifactId>
+           <version>2.0.0.AM26</version>
+       </dependency>
+
+       <!-- Embedded  embeddedLdapRule  -->
+       <dependency>
+           <groupId>org.zapodot</groupId>
+           <artifactId>embedded-ldap-junit</artifactId>
+           <version>0.8.1</version>
+           <scope>test</scope>
        </dependency>
 
    </dependencies>
