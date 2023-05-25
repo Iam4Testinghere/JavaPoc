@@ -250,5 +250,64 @@ public class LdapUserAndGroups {
         }
     }
 
+    /**
+     Variante Verbindung DirContext wird get methode zurückgegeben *
+     */
+    public DirContext getnewConnection() {
+        Properties env = new Properties();
+        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+        env.put(Context.PROVIDER_URL, "ldap://localhost:10389");
+        env.put(Context.SECURITY_PRINCIPAL, "uid=admin, ou=system");
+        env.put(Context.SECURITY_CREDENTIALS, "secret");
+        try {
+            connection = new InitialDirContext(env);
+            return connection;
+        } catch (AuthenticationException ex) {
+            System.out.println(ex.getMessage());
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    /***************************************************************************/
+    /**
+     * Ruft Benutzerdetails auf Attributebene ab und gibt sie aus.
+     *
+     * @throws NamingException Wenn bei der Suche nach Benutzern ein Fehler auftritt.
+     */
+    public List<String> getUserPhoneNumbers(String userName) throws NamingException {
+        List<String> phoneNumbers = new ArrayList<>();
+
+        // LDAP-Verbindung und Suchfilter konfigurieren
+        String filter = "(cn=" + userName + ")";
+        String[] attributes = {"telephoneNumber"};
+        SearchControls searchControls = new SearchControls();
+        searchControls.setReturningAttributes(attributes);
+        searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+
+        // LDAP-Suche ausführen
+        NamingEnumeration<SearchResult> results = getnewConnection().search("ou=users,dc=example,dc=com", filter, searchControls);
+
+        // Gefundene Einträge verarbeiten
+        while (results.hasMore()) {
+            SearchResult result = results.next();
+            Attributes attrs = result.getAttributes();
+
+            // Telefonnummern extrahieren
+            if (attrs != null) {
+                Attribute telephoneNumbers = attrs.get("telephoneNumber");
+                if (telephoneNumbers != null) {
+                    NamingEnumeration<?> numbers = telephoneNumbers.getAll();
+                    while (numbers.hasMore()) {
+                        String phoneNumber = (String) numbers.next();
+                        phoneNumbers.add(phoneNumber);
+                    }
+                }
+            }
+        }
+        getnewConnection().close();
+        return phoneNumbers;
+    }
+
 }
 
