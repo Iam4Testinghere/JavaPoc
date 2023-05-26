@@ -1,10 +1,7 @@
 package tutorial.code.snipes.ldap;
 
 import java.util.*;
-import javax.naming.AuthenticationException;
-import javax.naming.Context;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
+import javax.naming.*;
 import javax.naming.directory.*;
 
 /**
@@ -308,6 +305,69 @@ public class LdapUserAndGroups {
         getnewConnection().close();
         return phoneNumbers;
     }
+
+    /**
+     * Diese Klasse stellt eine Methode bereit, um alle Attribute eines Benutzers anhand des Namens anzuzeigen.
+     */
+    public List<String> getAllAttributeOfName(String name) throws NamingException {
+        List<String> listAllAttributesWithValue = new ArrayList<>();
+
+        // Schritt 1: Filter für den Benutzernamen erstellen
+        String filter = "cn=" + name;
+
+        // Schritt 2: Suchsteuerelemente festlegen
+        SearchControls controls = new SearchControls();
+        controls.setReturningAttributes(null); // Alle Attribute zurückgeben
+        controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+
+        // Schritt 3: Verbindung zum Verzeichnisdienst herstellen und die Suche durchführen
+        NamingEnumeration<?> userInfo = null;
+        try {
+            userInfo = getnewConnection().search("ou=users,dc=example,dc=com", filter, controls);
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        }
+
+        SearchResult searchResult = null;
+        try {
+            // Schritt 4: Attribute für jeden gefundenen Benutzer anzeigen
+            while (userInfo.hasMore()) {
+                searchResult = (SearchResult) userInfo.nextElement();
+                Attributes attributesObject = searchResult.getAttributes();
+                if (attributesObject == null) {
+                    throw new NameNotFoundException("User not found");
+                }
+                NamingEnumeration<? extends Attribute> attributeEnumeration = attributesObject.getAll();
+                while (attributeEnumeration.hasMore()) {
+                    Attribute attribute = attributeEnumeration.next();
+                    String attributeName = attribute.getID();
+
+                    NamingEnumeration<?> valueEnumeration = attribute.getAll();
+                    while (valueEnumeration.hasMore()) {
+                        Object value = valueEnumeration.next();
+                        listAllAttributesWithValue.add(attributeName + ": " + value);
+                    }
+                }
+            }
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Schritt 5: Ressourcen freigeben
+            if (userInfo != null) {
+                userInfo.close();
+            }
+            if (getnewConnection() != null) {
+                try {
+                    getnewConnection().close();
+                } catch (NamingException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        // Liste mit allen Attributen zurückgeben
+        return listAllAttributesWithValue;
+    }
+
 
 }
 
