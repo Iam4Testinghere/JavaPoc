@@ -335,7 +335,7 @@ public class LdapUserAndGroups {
                 searchResult = (SearchResult) userInfo.nextElement();
                 Attributes attributesObject = searchResult.getAttributes();
                 if (attributesObject == null) {
-                    throw new NameNotFoundException("User not found");
+                    throw new NameNotFoundException("Die Benutzer Attribute von " + name + "wurde nicht gefunden");
                 }
                 NamingEnumeration<? extends Attribute> attributeEnumeration = attributesObject.getAll();
                 while (attributeEnumeration.hasMore()) {
