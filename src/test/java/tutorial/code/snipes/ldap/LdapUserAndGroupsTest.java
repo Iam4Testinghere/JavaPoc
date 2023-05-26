@@ -49,4 +49,9 @@ public class LdapUserAndGroupsTest {
         LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
         assertTrue(ldapUserAndGroups.getUserPhoneNumbers("JohnDoe").size() > 0);
     }
+    @Test
+    void getAllAttributeOfName() throws NamingException {
+        LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
+        assertTrue(ldapUserAndGroups.getAllAttributeOfName("JohnDoe").size() > 0);
+    }
 }
