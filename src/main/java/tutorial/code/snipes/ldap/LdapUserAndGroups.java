@@ -31,7 +31,6 @@ public class LdapUserAndGroups {
      *
      * @return Die Verbindung zum LDAP-Server.
      */
-
     public DirContext getConnection() {
         return connection;
     }
@@ -39,7 +38,6 @@ public class LdapUserAndGroups {
      * Stellt eine Verbindung zum LDAP-Server her.
      * Setzt die Verbindungsparameter und fängt mögliche Ausnahmen ab.
      */
-
     public void newConnection() {
         Properties env = new Properties();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -55,14 +53,12 @@ public class LdapUserAndGroups {
             e.printStackTrace();
         }
     }
-
     /**
      * Ruft eine Liste von Attributen für alle Benutzer ab.
      *
      * @return Eine Liste von Attributen für alle Benutzer.
      * @throws NamingException Wenn bei der Suche nach Benutzern ein Fehler auftritt.
      */
-
     public List<Attributes> getAllUsers() throws NamingException {
         String searchFilter = "(objectClass=organizationalPerson)";
         String[] reqAtt = {"cn", "sn"};
@@ -82,7 +78,6 @@ public class LdapUserAndGroups {
         }
         return attrList;
     }
-
     /**
      * Überprüft, ob ein bestimmter Benutzer vorhanden ist.
      *
@@ -90,7 +85,6 @@ public class LdapUserAndGroups {
      * @return true, wenn der Benutzer gefunden wurde, andernfalls false.
      * @throws NamingException Wenn bei der Suche nach Benutzern ein Fehler auftritt.
      */
-
     public boolean findSpecificUser(String userName) throws NamingException {
         String searchFilter = "(objectClass=organizationalPerson)";
         String[] reqAtt = {"cn", "sn"};
@@ -112,7 +106,6 @@ public class LdapUserAndGroups {
         }
         return false;
     }
-
     /**
      * Ruft eine Liste von Attributen für alle Gruppen ab.
      *
@@ -139,21 +132,18 @@ public class LdapUserAndGroups {
         }
         return attrList;
     }
-
     /**
      * Ruft Benutzerdetails auf Attributebene ab und gibt sie aus.
      *
      * @throws NamingException Wenn bei der Suche nach Benutzern ein Fehler auftritt.
      */
     public void getUserDetailOnAttributLevel() throws NamingException {
-
         String filter = "(objectClass=inetOrgPerson)";
         String[] atr = {"telephoneNumber"};
         SearchControls searchControls = new SearchControls();
         searchControls.setReturningAttributes(atr);
         searchControls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         NamingEnumeration user = connection.search("ou=Users,dc=example,dc=com", filter, searchControls);
-
         while (user.hasMore()) {
             SearchResult searchResult = (SearchResult) user.nextElement();
             Attributes attObject = searchResult.getAttributes();
@@ -183,7 +173,6 @@ public class LdapUserAndGroups {
             }
         }
     }
-
     /**
      * Ruft das Passwort für den angegebenen Benutzernamen ab.
      *
@@ -210,7 +199,6 @@ public class LdapUserAndGroups {
     }
     /**
      * Ändert das Passwort für den angegebenen Benutzernamen.
-     *
      * @param userName     der Benutzername
      * @param newPassword das neue Passwort
      * @throws NamingException falls ein Fehler bei der Namensauflösung auftritt
@@ -246,7 +234,6 @@ public class LdapUserAndGroups {
             e.printStackTrace();
         }
     }
-
     /**
      Variante Verbindung DirContext wird get methode zurückgegeben *
      */
@@ -266,11 +253,11 @@ public class LdapUserAndGroups {
         }
         return null;
     }
-    /***************************************************************************/
     /**
      * Ruft Benutzerdetails auf Attributebene ab und gibt sie aus.
      *
      * @throws NamingException Wenn bei der Suche nach Benutzern ein Fehler auftritt.
+     * TODO : catch-block in dieser Methode dient der Fehlerbehandlung für Resourcen freigabe
      */
     public List<String> getUserPhoneNumbers(String userName) throws NamingException {
         List<String> phoneNumbers = new ArrayList<>();
@@ -305,9 +292,15 @@ public class LdapUserAndGroups {
         getnewConnection().close();
         return phoneNumbers;
     }
-
     /**
      * Diese Klasse stellt eine Methode bereit, um alle Attribute eines Benutzers anhand des Namens anzuzeigen.
+     * Der Catch-Block in dieser Methode dient der Fehlerbehandlung. Wenn beim Herstellen der
+     * Verbindung oder bei der Suche ein Fehler auftritt, wird eine NamingException geworfen.
+     * @param name der Benutzername
+     * @return eine Liste mit allen Attributen des Benutzers
+     * @throws NamingException falls ein Fehler bei der Namensauflösung auftritt
+     * @throws NameNotFoundException falls die Benutzerattribute nicht gefunden werden können
+     * @throws IllegalArgumentException falls der Benutzername ungültig ist
      */
     public List<String> getAllAttributeOfName(String name) throws NamingException {
         List<String> listAllAttributesWithValue = new ArrayList<>();
@@ -327,7 +320,6 @@ public class LdapUserAndGroups {
         } catch (NamingException e) {
             throw new RuntimeException(e);
         }
-
         SearchResult searchResult = null;
         try {
             // Schritt 4: Attribute für jeden gefundenen Benutzer anzeigen
@@ -367,7 +359,5 @@ public class LdapUserAndGroups {
         // Liste mit allen Attributen zurückgeben
         return listAllAttributesWithValue;
     }
-
-
 }
 
