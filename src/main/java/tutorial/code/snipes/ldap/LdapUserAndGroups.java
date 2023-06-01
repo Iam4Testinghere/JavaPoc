@@ -335,7 +335,6 @@ public class LdapUserAndGroups {
                 while (attributeEnumeration.hasMore()) {
                     Attribute attribute = attributeEnumeration.next();
                     String attributeName = attribute.getID();
-
                     NamingEnumeration<?> valueEnumeration = attribute.getAll();
                     while (valueEnumeration.hasMore()) {
                         Object value = valueEnumeration.next();
@@ -373,22 +372,17 @@ public class LdapUserAndGroups {
             return false;
         }
         logger.info("Gruppe in LDAP verwendet: " + hasGroup);
-
         String searchFilter = "(objectClass=groupOfNames)";
         String[] reqAtt = {"cn"};
         SearchControls controls = new SearchControls();
         controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
         controls.setReturningAttributes(reqAtt);
-
         NamingEnumeration<SearchResult> groups = null;
         try {
             groups = getConnection().search("ou=group,dc=example,dc=com", searchFilter, controls);
-
             SearchResult result = null;
-
             while (groups.hasMore()) {
                 result = groups.next();
-
                 Attributes attrs = result.getAttributes();
                 if (attrs != null) {
                     Attribute cn = attrs.get("cn");
@@ -423,6 +417,5 @@ public class LdapUserAndGroups {
         logger.info("Gruppe nicht in LDAP gefunden: " + hasGroup);
         return false;
     }
-
 }
 
