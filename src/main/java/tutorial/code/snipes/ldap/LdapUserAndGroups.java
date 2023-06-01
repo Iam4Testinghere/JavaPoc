@@ -368,6 +368,12 @@ public class LdapUserAndGroups {
      * @return true, wenn die Gruppe gefunden wurde, ansonsten false.
      */
     public boolean isGroupInLdap(String hasGroup) {
+        if (hasGroup == null || hasGroup.isEmpty()) {
+            logger.info("Gruppe Information hasGroup ist leer ");
+            return false;
+        }
+        logger.info("Gruppe in LDAP verwendet: " + hasGroup);
+
         String searchFilter = "(objectClass=groupOfNames)";
         String[] reqAtt = {"cn"};
         SearchControls controls = new SearchControls();
@@ -377,6 +383,7 @@ public class LdapUserAndGroups {
         NamingEnumeration<SearchResult> groups = null;
         try {
             groups = getConnection().search("ou=group,dc=example,dc=com", searchFilter, controls);
+
             SearchResult result = null;
 
             while (groups.hasMore()) {
@@ -403,7 +410,6 @@ public class LdapUserAndGroups {
                     groups.close();
                 } catch (NamingException e) {
                     logger.debug("Fehler beim Schließen der NamingEnumeration: " + e.getMessage());
-                    System.err.println("Fehler beim Schließen der NamingEnumeration: " + e.getMessage());
                 }
             }
             if (getConnection() != null) {
@@ -411,7 +417,6 @@ public class LdapUserAndGroups {
                     getConnection().close();
                 } catch (NamingException e) {
                     logger.debug("Fehler beim Schließen der Verbindung: " + e.getMessage());
-                    System.err.println("Fehler beim Schließen der Verbindung: " + e.getMessage());
                 }
             }
         }
