@@ -1,6 +1,8 @@
 package tutorial.code.snipes.ldap;
 
+import org.apache.log4j.PropertyConfigurator;
 import org.junit.Rule;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.zapodot.junit.ldap.EmbeddedLdapRule;
 import org.zapodot.junit.ldap.EmbeddedLdapRuleBuilder;
@@ -11,6 +13,7 @@ public class LdapUserAndGroupsOhneMockTest {
     /**
      * Diese Klasse enthält Tests für die LdapUserAndGroups-Klasse, die Benutzer und Gruppen in einem LDAP-Verzeichnis manipuliert.
      */
+
     public static final String DC_EXAMPLE_DC_COM = "dc=example,dc=com";
     @Rule
     public EmbeddedLdapRule embeddedLdapRule = EmbeddedLdapRuleBuilder.newInstance().usingDomainDsn(DC_EXAMPLE_DC_COM)
@@ -47,16 +50,6 @@ public class LdapUserAndGroupsOhneMockTest {
         LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
         DirContext connection = ldapUserAndGroups.getConnection();
         assertNotNull(connection);
-    }
-    /**
-     * Dies ist ein Beispieltest, der auskommentiert wurde.
-     *
-     * @throws Exception Wenn ein allgemeiner Fehler auftritt.
-     */
-    @Test
-    public void testwas() throws Exception {
-        LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
-        //  ldapUserAndGroups.testwas();
     }
 }
 

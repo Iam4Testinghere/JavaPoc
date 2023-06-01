@@ -3,12 +3,14 @@ package tutorial.code.snipes.ldap;
 import java.util.*;
 import javax.naming.*;
 import javax.naming.directory.*;
+import org.apache.log4j.Logger;
 
 /**
  * Diese Klasse stellt Methoden zum Arbeiten mit LDAP-Benutzern und -Gruppen bereit.
  */
 public class LdapUserAndGroups {
     DirContext connection;
+    Logger logger = Logger.getLogger(LdapUserAndGroups.class);
 
     /**
      * Erstellt eine neue Instanz von LdapUserAndGroups und stellt eine Verbindung zum LDAP-Server her.
@@ -359,5 +361,63 @@ public class LdapUserAndGroups {
         // Liste mit allen Attributen zurückgeben
         return listAllAttributesWithValue;
     }
+    /**
+     * Überprüft, ob die angegebene Gruppe in LDAP vorhanden ist.
+     *
+     * @param hasGroup Die zu überprüfende Gruppe.
+     * @return true, wenn die Gruppe gefunden wurde, ansonsten false.
+     */
+    public boolean isGroupInLdap(String hasGroup) {
+        String searchFilter = "(objectClass=groupOfNames)";
+        String[] reqAtt = {"cn"};
+        SearchControls controls = new SearchControls();
+        controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        controls.setReturningAttributes(reqAtt);
+
+        NamingEnumeration<SearchResult> groups = null;
+        try {
+            groups = getConnection().search("ou=group,dc=example,dc=com", searchFilter, controls);
+            SearchResult result = null;
+
+            while (groups.hasMore()) {
+                result = groups.next();
+
+                Attributes attrs = result.getAttributes();
+                if (attrs != null) {
+                    Attribute cn = attrs.get("cn");
+                    if (cn != null) {
+                        String cnValue = cn.get().toString();
+                        if (cnValue.equals(hasGroup)) {
+                            logger.info("Gruppe in LDAP gefunden: " + hasGroup);
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (NamingException e) {
+            logger.debug("LDAP-Suchfehler: " + e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            if (groups != null) {
+                try {
+                    groups.close();
+                } catch (NamingException e) {
+                    logger.debug("Fehler beim Schließen der NamingEnumeration: " + e.getMessage());
+                    System.err.println("Fehler beim Schließen der NamingEnumeration: " + e.getMessage());
+                }
+            }
+            if (getConnection() != null) {
+                try {
+                    getConnection().close();
+                } catch (NamingException e) {
+                    logger.debug("Fehler beim Schließen der Verbindung: " + e.getMessage());
+                    System.err.println("Fehler beim Schließen der Verbindung: " + e.getMessage());
+                }
+            }
+        }
+        logger.info("Gruppe nicht in LDAP gefunden: " + hasGroup);
+        return false;
+    }
+
 }
 

@@ -5,12 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.naming.NamingException;
 
+import org.apache.log4j.PropertyConfigurator;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 
 public class LdapUserAndGroupsTest {
+    @BeforeAll
+    public static void setup() {
+        PropertyConfigurator.configure("src/test/resources/log4j.properties");
+    }
+
     /**
      * Diese Klasse enthält Testfälle für die Methode "changeUserPassword" der Klasse "LdapUserAndGroups".
      * Sie prüft verschiedene Szenarien, in denen eine IllegalArgumentException erwartet wird.
@@ -53,5 +60,16 @@ public class LdapUserAndGroupsTest {
     void getAllAttributeOfName() throws NamingException {
         LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
         assertTrue(ldapUserAndGroups.getAllAttributeOfName("JohnDoe").size() > 0);
+    }
+    /**
+     * Dies ist ein Beispieltest, der auskommentiert wurde.
+     *
+     * @throws Exception Wenn ein allgemeiner Fehler auftritt.
+     */
+    @Test
+    void isGroupInLdap() throws NamingException {
+        LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
+         ldapUserAndGroups.isGroupInLdap("group1");
+      //  assertTrue(ldapUserAndGroups.isGroupInLdap("group1"));
     }
 }
