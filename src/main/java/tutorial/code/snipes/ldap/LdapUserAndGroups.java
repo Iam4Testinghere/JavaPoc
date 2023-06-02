@@ -232,7 +232,6 @@ public class LdapUserAndGroups {
             item[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, new BasicAttribute("userPassword", newPassword));
             connection.modifyAttributes("cn=" + userName + ",ou=Users,dc=example,dc=com", item);
         } catch (NamingException e) {
-            // Todo: log4j implnementieren
             e.printStackTrace();
         }
     }
