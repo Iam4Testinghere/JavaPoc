@@ -15,7 +15,7 @@ import java.util.List;
 public class LdapUserAndGroupsTest {
     @BeforeAll
     public static void setup() {
-        PropertyConfigurator.configure("src/test/resources/log4j.properties");
+       // PropertyConfigurator.configure("src/test/resources/log4j.properties");
     }
 
     /**
@@ -69,7 +69,7 @@ public class LdapUserAndGroupsTest {
     @Test
     void isGroupInLdap() throws NamingException {
         LdapUserAndGroups ldapUserAndGroups = new LdapUserAndGroups();
-         ldapUserAndGroups.isGroupInLdap("group1");
+        ldapUserAndGroups.isGroupInLdap("group1");
       //  assertTrue(ldapUserAndGroups.isGroupInLdap("group1"));
     }
 }

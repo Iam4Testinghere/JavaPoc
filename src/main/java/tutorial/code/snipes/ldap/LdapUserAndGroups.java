@@ -368,10 +368,10 @@ public class LdapUserAndGroups {
      */
     public boolean isGroupInLdap(String hasGroup) {
         if (hasGroup == null || hasGroup.isEmpty()) {
-            logger.info("Gruppe Information hasGroup ist leer ");
+          // logger.info("Gruppe Information hasGroup ist leer ");
             return false;
         }
-        logger.info("Gruppe in LDAP verwendet: " + hasGroup);
+        // logger.info("Gruppe in LDAP verwendet: " + hasGroup);
         String searchFilter = "(objectClass=groupOfNames)";
         String[] reqAtt = {"cn"};
         SearchControls controls = new SearchControls();
@@ -389,17 +389,19 @@ public class LdapUserAndGroups {
                     if (cn != null) {
                         String cnValue = cn.get().toString();
                         if (cnValue.equals(hasGroup)) {
-                            logger.info("Gruppe in LDAP gefunden: " + hasGroup);
+                         // logger.info("Gruppe in LDAP gefunden: " + hasGroup);
                             return true;
                         }
                     }
                 }
             }
         } catch (NamingException e) {
-            logger.debug("LDAP-Suchfehler: " + e.getMessage());
+          // logger.debug("LDAP-Suchfehler: " + e.getMessage());
+                System.out.println("LDAP-Suchfehler: " + e.getMessage());
             throw new RuntimeException(e);
         } finally {
             if (groups != null) {
+
                 try {
                     groups.close();
                 } catch (NamingException e) {
@@ -410,11 +412,12 @@ public class LdapUserAndGroups {
                 try {
                     getConnection().close();
                 } catch (NamingException e) {
-                    logger.debug("Fehler beim Schließen der Verbindung: " + e.getMessage());
+                   // logger.debug("Fehler beim Schließen der Verbindung: " + e.getMessage());
+                    System.out.println("Fehler beim Schließen der Verbindung: " + e.getMessage());
                 }
             }
         }
-        logger.info("Gruppe nicht in LDAP gefunden: " + hasGroup);
+        // logger.info("Gruppe nicht in LDAP gefunden: " + hasGroup);
         return false;
     }
 }
