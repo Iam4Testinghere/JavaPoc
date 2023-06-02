@@ -17,7 +17,6 @@ public class LdapUserAndGroupsTest {
     public static void setup() {
        // PropertyConfigurator.configure("src/test/resources/log4j.properties");
     }
-
     /**
      * Diese Klasse enthält Testfälle für die Methode "changeUserPassword" der Klasse "LdapUserAndGroups".
      * Sie prüft verschiedene Szenarien, in denen eine IllegalArgumentException erwartet wird.
